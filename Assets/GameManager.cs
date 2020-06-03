@@ -25,9 +25,9 @@ public class GameManager : MonoBehaviour
         // loop over number to spawn at random position
         // apply force to foward at player (-z)
         print("YELP");
-        GameObject instanceOfTable = Instantiate(tablePrefab, transform.position, Quaternion.identity);
+        //GameObject instanceOfTable = Instantiate(tablePrefab, transform.position, Quaternion.identity);
 
-        instanceOfTable.transform.Translate(new Vector3(15f, 15f, 15f));
+        //instanceOfTable.transform.Translate(new Vector3(15f, 15f, 15f));
 
         yield return new WaitForSeconds(10);
     }
