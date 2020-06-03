@@ -23,33 +23,32 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (true)
-        {
-            Move();
-        }
+        Move();
     }
-
-
 
     private void Move()
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            float nextLeftPos = (transform.position.x - blockSize);
-
-            float newX = nextLeftPos < Mathf.Epsilon
-                ? 0f
-                : nextLeftPos;
+            float nextLeftPos = Mathf.Clamp(
+                (transform.position.x - blockSize),
+                0,
+                Mathf.Infinity
+            );
 
             transform.position = new Vector3(
-                newX,
+                nextLeftPos,
                 transform.position.y,
                 transform.position.z
             );
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            float newX = (transform.position.x + blockSize) % maxRight;
+            float newX = Mathf.Clamp(
+                (transform.position.x + blockSize),
+                0f,
+                maxRight - blockSize
+            );
 
             transform.position = new Vector3(
                 newX,
