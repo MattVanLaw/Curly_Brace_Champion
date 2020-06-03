@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     List<Vector3> notSoRandomPositions = new List<Vector3>();
 
     // Start is called before the first frame update
-    void Start()
+    void OnMouseUp()
     {
         SetupArrayOfPossiblePositions();
         StartCoroutine(SpawnInRandomPosition());
