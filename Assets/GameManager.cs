@@ -6,29 +6,54 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject tablePrefab;
+
+    // TODO: Pull into TableController
+    [Header("Table")]
+    [SerializeField] float tableSpawnRate = 3f;
+    [SerializeField] int tableSpeed = 1000;
+    List<Vector3> notSoRandomPositions = new List<Vector3>();
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        SetupArrayOfPossiblePositions();
+        StartCoroutine(SpawnInRandomPosition());
     }
 
-    // Update is called once per frame
-    void Update()
+    private void SetupArrayOfPossiblePositions()
     {
-        StartCoroutine(SpawnTable());
+        float flatLandY = -2.46f;
+
+        notSoRandomPositions.Add(new Vector3(0f, flatLandY, 30f));
+        notSoRandomPositions.Add(new Vector3(5f, flatLandY, 30f));
+        notSoRandomPositions.Add(new Vector3(10f, flatLandY, 30f));
     }
 
-    IEnumerator SpawnTable()
+    IEnumerator SpawnInRandomPosition()
+    {
+        while (true)
+        {
+            System.Random random = new System.Random();
+
+            int randomIdx = Convert.ToInt32(random.Next(0, notSoRandomPositions.Count));
+
+            print("Random idx" + randomIdx);
+            Vector3 pos = notSoRandomPositions[randomIdx];
+
+            yield return new WaitForSeconds(tableSpawnRate);
+
+            SpawnTable(pos);
+        }
+    }
+    private void SpawnTable(Vector3 pos)
     {
         // TODOS
         // get random appropriate position
         // loop over number to spawn at random position
         // apply force to foward at player (-z)
-        print("YELP");
-        //GameObject instanceOfTable = Instantiate(tablePrefab, transform.position, Quaternion.identity);
+        GameObject instanceOfTable = Instantiate(tablePrefab, pos, Quaternion.identity);
 
-        //instanceOfTable.transform.Translate(new Vector3(15f, 15f, 15f));
-
-        yield return new WaitForSeconds(10);
+        instanceOfTable.GetComponent<Rigidbody>().AddForce(Vector3.back * tableSpeed);
     }
 }
+
