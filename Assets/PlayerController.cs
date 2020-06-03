@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -80,5 +81,12 @@ public class PlayerController : MonoBehaviour
                 newZ
             );
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Destroy(gameObject);
+
+        SceneManager.LoadScene(0);
     }
 }
