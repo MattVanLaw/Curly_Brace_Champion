@@ -40,7 +40,6 @@ public class TableController : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        print("Collided!");
         Destroy(mainCollider);
 
         tableLeftRigidBody.isKinematic = false;
