@@ -12,14 +12,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int numCols;
     [SerializeField] GameObject projectile;
     [SerializeField] float projectileForce = 1000;
+    [SerializeField] Transform position;
+    float maxUps = 0f;
+    float maxRight = 0f;
 
-    float maxRight;
-    float maxUp;
     // Start is called before the first frame update
     void Start()
     {
-        maxRight = numCols * blockSize;
-        maxUp = numRows * blockSize;
+        maxUps = blockSize * numRows;
+        maxRight = blockSize * numCols;
     }
 
     // Update is called once per frame
@@ -44,25 +45,21 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
-            float nextLeftPos = Mathf.Clamp(
-                (transform.position.x - blockSize),
-                0,
-                Mathf.Infinity
-            );
+            float newX = (transform.position.x - blockSize);
+
+            if (newX <= Mathf.Epsilon) return;
 
             transform.position = new Vector3(
-                nextLeftPos,
+                newX,
                 transform.position.y,
                 transform.position.z
             );
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
-            float newX = Mathf.Clamp(
-                (transform.position.x + blockSize),
-                0f,
-                maxRight - blockSize
-            );
+            float newX = (transform.position.x + blockSize);
+
+            if (newX >= maxRight) return;
 
             transform.position = new Vector3(
                 newX,
@@ -72,7 +69,9 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            float newZ = (transform.position.z + blockSize) % maxUp;
+            float newZ = (transform.position.z + blockSize);
+
+            if (newZ >= maxUps) return;
 
             transform.position = new Vector3(
                 transform.position.x,
@@ -82,11 +81,9 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
-            float nextZPos = transform.position.z - blockSize;
+            float newZ = (transform.position.z - blockSize);
 
-            float newZ = nextZPos < Mathf.Epsilon
-                ? 0f
-                : nextZPos;
+            if (newZ <= Mathf.Epsilon) return;
 
             transform.position = new Vector3(
                 transform.position.x,

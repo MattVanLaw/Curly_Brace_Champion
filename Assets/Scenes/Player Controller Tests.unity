@@ -951,6 +951,7 @@ MonoBehaviour:
   numCols: 4
   projectile: {fileID: 0}
   projectileForce: 1000
+  position: {fileID: 0}
 --- !u!54 &975232826
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2005,6 +2006,7 @@ MonoBehaviour:
   projectile: {fileID: 7204698518582239422, guid: 6bd9e9264f6a94d45a0de0a1e050278e,
     type: 3}
   projectileForce: 1000
+  position: {fileID: 0}
 --- !u!65 &1125549638008177771
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2184,7 +2186,7 @@ PrefabInstance:
     - target: {fileID: 2194301886459759064, guid: 3be7077dc8d5dbd4e8037db7363971eb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.17
+      value: 1.69
       objectReference: {fileID: 0}
     - target: {fileID: 2194301886459759064, guid: 3be7077dc8d5dbd4e8037db7363971eb,
         type: 3}
@@ -2649,7 +2651,7 @@ PrefabInstance:
     - target: {fileID: 400838757025115965, guid: cec072191c8171841ae0db3b1f415e52,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.8159723
+      value: 5.65
       objectReference: {fileID: 0}
     - target: {fileID: 400838757025115965, guid: cec072191c8171841ae0db3b1f415e52,
         type: 3}
