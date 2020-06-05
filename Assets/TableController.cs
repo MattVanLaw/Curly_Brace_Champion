@@ -36,4 +36,18 @@ public class TableController : MonoBehaviour
         tableLeftRigidBody.AddForce(explosionLeverLeft);
         tableRightRigidBody.AddForce(explosionLeverRight);
     }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        print("Collided!");
+        Destroy(mainCollider);
+
+        tableLeftRigidBody.isKinematic = false;
+        tableRightRigidBody.isKinematic = false;
+
+        tableLeftRigidBody.AddForce(explosionLeverLeft);
+        tableRightRigidBody.AddForce(explosionLeverRight);
+    }
+
+
 }

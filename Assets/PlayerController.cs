@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float blockSize = 5f;
     [SerializeField] int numRows; 
     [SerializeField] int numCols;
+    [SerializeField] GameObject projectile;
+    [SerializeField] float projectileForce = 1000;
 
     float maxRight;
     float maxUp;
@@ -24,11 +26,23 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Move();
+        Fire();
+    }
+
+    private void Fire()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GameObject projectileInstance = Instantiate(projectile);
+            projectileInstance.transform.position = new Vector3(transform.localPosition.x - 2f, transform.localPosition.y + 2.5f, transform.localPosition.z + 1);
+            Rigidbody projectileRigidBody = projectileInstance.gameObject.GetComponent<Rigidbody>();
+            projectileRigidBody.AddForce(0f, 0f, projectileForce);
+        }
     }
 
     private void Move()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.W))
         {
             float nextLeftPos = Mathf.Clamp(
                 (transform.position.x - blockSize),
@@ -42,7 +56,7 @@ public class PlayerController : MonoBehaviour
                 transform.position.z
             );
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKeyDown(KeyCode.S))
         {
             float newX = Mathf.Clamp(
                 (transform.position.x + blockSize),
@@ -56,7 +70,7 @@ public class PlayerController : MonoBehaviour
                 transform.position.z
             );
         }
-        else if (Input.GetKeyDown(KeyCode.W))
+        else if (Input.GetKeyDown(KeyCode.D))
         {
             float newZ = (transform.position.z + blockSize) % maxUp;
 
@@ -66,7 +80,7 @@ public class PlayerController : MonoBehaviour
                 newZ
             );
         }
-        else if (Input.GetKeyDown(KeyCode.S))
+        else if (Input.GetKeyDown(KeyCode.A))
         {
             float nextZPos = transform.position.z - blockSize;
 
@@ -88,4 +102,6 @@ public class PlayerController : MonoBehaviour
 
         SceneManager.LoadScene(0);
     }
+
+
 }

@@ -20,6 +20,12 @@ public class GameManager : MonoBehaviour
         StartCoroutine(SpawnInRandomPosition());
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        SetupArrayOfPossiblePositions();
+        StartCoroutine(SpawnInRandomPosition());
+    }
+
     private void SetupArrayOfPossiblePositions()
     {
         float flatLandY = -2.46f;
