@@ -572,5 +572,6 @@ MonoBehaviour:
   tableLeft: {fileID: 3995549809650338558}
   tableRight: {fileID: 421157100047016148}
   mainCollider: {fileID: 1680195563}
+  despawnTime: 3.67
   explosionLeverRight: {x: 1000, y: 1000, z: 1000}
   explosionLeverLeft: {x: -1000, y: 1000, z: 1000}
