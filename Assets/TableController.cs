@@ -7,6 +7,7 @@ public class TableController : MonoBehaviour
     [SerializeField] GameObject tableLeft;
     [SerializeField] GameObject tableRight;
     [SerializeField] GameObject mainCollider;
+    [SerializeField] float despawnTime = 0;
 
     [SerializeField] Vector3 explosionLeverRight = new Vector3(1000f, 1000f, 1000f);
     [SerializeField] Vector3 explosionLeverLeft = new Vector3(-1000f, 1000f, 1000f);
@@ -47,7 +48,15 @@ public class TableController : MonoBehaviour
 
         tableLeftRigidBody.AddForce(explosionLeverLeft);
         tableRightRigidBody.AddForce(explosionLeverRight);
+
+        StartCoroutine(DestroyTable());
     }
 
+    IEnumerator DestroyTable()
+    {
+        yield return new WaitForSeconds(despawnTime);
+
+        if (despawnTime >= Mathf.Epsilon) Destroy(gameObject);
+    }
 
 }
