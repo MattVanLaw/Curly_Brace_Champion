@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int numCols;
     [SerializeField] GameObject projectile;
     [SerializeField] float projectileForce = 1000;
+    [SerializeField] float projectileY = 1.5f;
+    [SerializeField] float projectileX = -1.5f;
+    [SerializeField] float projectileZ = 1;
     [SerializeField] Transform position;
     [SerializeField] float despawnTime = 4;
     float maxUps = 0f;
@@ -39,7 +42,7 @@ public class PlayerController : MonoBehaviour
             GameObject projectileInstance = Instantiate(projectile);
             projectileInstance.transform.parent = leafParent.transform;
 
-            projectileInstance.transform.position = new Vector3(transform.localPosition.x - 1f, transform.localPosition.y + 2.5f, transform.localPosition.z + 1);
+            projectileInstance.transform.position = new Vector3(transform.localPosition.x + projectileX, transform.localPosition.y + projectileY, transform.localPosition.z + projectileZ);
             Rigidbody projectileRigidBody = projectileInstance.gameObject.GetComponent<Rigidbody>();
             projectileRigidBody.AddForce(0f, 0f, projectileForce);
 
