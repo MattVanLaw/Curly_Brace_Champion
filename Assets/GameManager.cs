@@ -30,9 +30,10 @@ public class GameManager : MonoBehaviour
     {
         float flatLandY = -2.46f;
 
-        notSoRandomPositions.Add(new Vector3(0f, flatLandY, 30f));
-        notSoRandomPositions.Add(new Vector3(5f, flatLandY, 30f));
-        notSoRandomPositions.Add(new Vector3(10f, flatLandY, 30f));
+        notSoRandomPositions.Add(new Vector3(-2.16f, flatLandY, 30f));
+        notSoRandomPositions.Add(new Vector3(2.84f, flatLandY, 30f));
+        notSoRandomPositions.Add(new Vector3(7.54f, flatLandY, 30f));
+        notSoRandomPositions.Add(new Vector3(12.25f, flatLandY, 30f));
     }
 
     IEnumerator SpawnInRandomPosition()
