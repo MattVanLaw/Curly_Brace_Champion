@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     // todo try to grab from actual block in grid. prefab?
+    [SerializeField] GameObject leafParent;
     [SerializeField] float blockSize = 5f;
     [SerializeField] int numRows; 
     [SerializeField] int numCols;
@@ -36,6 +37,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             GameObject projectileInstance = Instantiate(projectile);
+            projectileInstance.transform.parent = leafParent.transform;
+
             projectileInstance.transform.position = new Vector3(transform.localPosition.x - 2f, transform.localPosition.y + 2.5f, transform.localPosition.z + 1);
             Rigidbody projectileRigidBody = projectileInstance.gameObject.GetComponent<Rigidbody>();
             projectileRigidBody.AddForce(0f, 0f, projectileForce);

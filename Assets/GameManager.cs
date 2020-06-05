@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     // TODO: Pull into TableController
     [Header("Table")]
     [SerializeField] float tableSpawnRate = 3f;
+    [SerializeField] GameObject tableParent;
     [SerializeField] int tableSpeed = 1000;
     List<Vector3> notSoRandomPositions = new List<Vector3>();
 
@@ -54,12 +55,8 @@ public class GameManager : MonoBehaviour
     }
     private void SpawnTable(Vector3 pos)
     {
-        // TODOS
-        // get random appropriate position
-        // loop over number to spawn at random position
-        // apply force to foward at player (-z)
         GameObject instanceOfTable = Instantiate(tablePrefab, pos, Quaternion.identity);
-
+        instanceOfTable.transform.parent = tableParent.transform;
         instanceOfTable.GetComponent<Rigidbody>().AddForce(Vector3.back * tableSpeed);
     }
 }
