@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
             GameObject projectileInstance = Instantiate(projectile);
             projectileInstance.transform.parent = leafParent.transform;
 
-            projectileInstance.transform.position = new Vector3(transform.localPosition.x - 2f, transform.localPosition.y + 2.5f, transform.localPosition.z + 1);
+            projectileInstance.transform.position = new Vector3(transform.localPosition.x - 1f, transform.localPosition.y + 2.5f, transform.localPosition.z + 1);
             Rigidbody projectileRigidBody = projectileInstance.gameObject.GetComponent<Rigidbody>();
             projectileRigidBody.AddForce(0f, 0f, projectileForce);
 
