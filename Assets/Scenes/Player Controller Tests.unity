@@ -309,6 +309,7 @@ MonoBehaviour:
   hitPoints: 200
   elephantParent: {fileID: 144913022}
   moveDownOnShrinkFudge: 0
+  collisionParticles: {fileID: 0}
   fullHealthScale: 0.69592
   twoThirdsHealthScale: 0.69592
   oneThirdHealthScale: 0.69592

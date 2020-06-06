@@ -10,6 +10,7 @@ public class ShrinkToDeath : MonoBehaviour
     [SerializeField] int hitPoints = 50;
     [SerializeField] GameObject elephantParent;
     [SerializeField] float moveDownOnShrinkFudge = 3f;
+    [SerializeField] ParticleSystem collisionParticles;
 
     [Header("Scales")]
     [SerializeField][Tooltip("Full Health")] float fullHealthScale = 1f;
@@ -23,6 +24,11 @@ public class ShrinkToDeath : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (collisionParticles)
+        {
+            var collisionEmission = collisionParticles.emission;
+            collisionEmission.enabled = false;
+        }
         BuildHitPointsToScaleDic();
     }
 
@@ -57,10 +63,14 @@ public class ShrinkToDeath : MonoBehaviour
 
     private void ProcessHit(Collider other)
     {
-        print("Thing Colliding: " + other.name);
-        print("Colliding thing's tag " + other.tag);
-        print("What's my friendly tag name? " + friendlyTagName);
-        if (other.tag != friendlyTagName) hitPoints--;
+        if (other.tag == friendlyTagName) { return; }
+
+        if (collisionParticles)
+        {
+            StartCoroutine(ProcessHitEffect());
+        }
+
+        hitPoints--;
 
         bool isReadyToScale = fullHealth != hitPoints && hitPointsToScale.ContainsKey(hitPoints);
         if (isReadyToScale)
@@ -68,8 +78,21 @@ public class ShrinkToDeath : MonoBehaviour
             LowerParent();
             ProcessShrink();
         }
+
+        
     }
-    
+
+    IEnumerator ProcessHitEffect()
+    {
+        print("HEY");
+        var particleEmission = collisionParticles.emission;
+        particleEmission.enabled = true;
+
+        yield return new WaitForSeconds(1f);
+
+        particleEmission.enabled = false;
+    }
+
     private void LowerParent()
     {
         elephantParent.gameObject.transform.position = new Vector3(
@@ -90,6 +113,9 @@ public class ShrinkToDeath : MonoBehaviour
 
     private void ProcessDeath()
     {
+        var particleEmission = collisionParticles.emission;
+        particleEmission.enabled = false;
+
         isAlive = false;
     }
 }
