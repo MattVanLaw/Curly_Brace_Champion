@@ -5,14 +5,46 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] GameObject tablePrefab;
+    [Header("Win/Lose Game Objects")]
+    [SerializeField] GameObject bossElephant;
+    [SerializeField] GameObject baseCurly;
 
     // TODO: Pull into TableController
     [Header("Table")]
-    [SerializeField] float tableSpawnRate = 3f;
     [SerializeField] GameObject tableParent;
+    [SerializeField] GameObject tablePrefab;
+    [SerializeField] float tableSpawnRate = 3f;
     [SerializeField] int tableSpeed = 1000;
+
     List<Vector3> notSoRandomPositions = new List<Vector3>();
+
+    void Update()
+    {
+        ProcessElephantStatus();
+        ProcessCrulyStatus();
+    }
+
+    private void ProcessElephantStatus()
+    {
+        if (!bossElephant.gameObject) return;
+
+        bool isBossAlive = bossElephant.GetComponent<ShrinkToDeath>().GetIsAlive();
+        if (!isBossAlive)
+        {
+            Destroy(bossElephant.gameObject);
+        }
+    }
+    
+    private void ProcessCrulyStatus()
+    {
+        if (!baseCurly.gameObject) return;
+
+        bool isBaseCurlyAlive = baseCurly.GetComponent<ShrinkToDeath>().GetIsAlive();
+        if (!isBaseCurlyAlive)
+        {
+            Destroy(baseCurly.gameObject);
+        }
+    }
 
     // Start is called before the first frame update
     void OnMouseUp()

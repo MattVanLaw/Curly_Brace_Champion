@@ -6,6 +6,7 @@ using UnityEngine;
 public class ShrinkToDeath : MonoBehaviour
 {
     [Header("General")]
+    [SerializeField] string friendlyTagName;
     [SerializeField] int hitPoints = 50;
     [SerializeField] GameObject elephantParent;
     [SerializeField] float moveDownOnShrinkFudge = 3f;
@@ -16,6 +17,8 @@ public class ShrinkToDeath : MonoBehaviour
     [SerializeField][Tooltip("1/3 Health")] float oneThirdHealthScale = .50f;
 
     Dictionary<int, float> hitPointsToScale = new Dictionary<int, float>();
+    bool isAlive = true;
+    int fullHealth;
 
     // Start is called before the first frame update
     void Start()
@@ -23,9 +26,14 @@ public class ShrinkToDeath : MonoBehaviour
         BuildHitPointsToScaleDic();
     }
 
+    public bool GetIsAlive()
+    {
+        return isAlive;
+    }
+
     private void BuildHitPointsToScaleDic()
     {
-        int fullHealth = hitPoints;
+        fullHealth = hitPoints;
         print(fullHealth);
         int twoThirdsHealth = Convert.ToInt32(fullHealth * .66666f);
         int oneThirdHealh = Convert.ToInt32(fullHealth * .333333f);
@@ -37,21 +45,24 @@ public class ShrinkToDeath : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        ProcessHit();
+        ProcessHit(other);
         if (hitPoints <= 0) ProcessDeath();
     }
 
-    void OnCollisionEnter(Collision collision)
+/*    void OnCollisionEnter(Collision collision)
     {
         ProcessHit();
         if (hitPoints <= 0) ProcessDeath();
-    }
+    }*/
 
-    private void ProcessHit()
+    private void ProcessHit(Collider other)
     {
-        hitPoints--;
+        print("Thing Colliding: " + other.name);
+        print("Colliding thing's tag " + other.tag);
+        print("What's my friendly tag name? " + friendlyTagName);
+        if (other.tag != friendlyTagName) hitPoints--;
 
-        bool isReadyToScale = hitPointsToScale.ContainsKey(hitPoints);
+        bool isReadyToScale = fullHealth != hitPoints && hitPointsToScale.ContainsKey(hitPoints);
         if (isReadyToScale)
         {
             LowerParent();
@@ -79,6 +90,6 @@ public class ShrinkToDeath : MonoBehaviour
 
     private void ProcessDeath()
     {
-        Destroy(gameObject);
+        isAlive = false;
     }
 }

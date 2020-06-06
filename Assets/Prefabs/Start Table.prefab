@@ -67,6 +67,7 @@ MonoBehaviour:
   tableLeft: {fileID: 8725920247979587371}
   tableRight: {fileID: 5454977887051390209}
   mainCollider: {fileID: 5650813954830959166}
+  despawnTime: 0
   explosionLeverRight: {x: 1000, y: 1000, z: 1000}
   explosionLeverLeft: {x: -1000, y: 1000, z: 1000}
 --- !u!114 &5650813954261227873
@@ -81,6 +82,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6366e25df3db7dc4ab69f0f651b81f96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossElephant: {fileID: 0}
+  baseCurly: {fileID: 0}
+  tableParent: {fileID: 0}
   tablePrefab: {fileID: 5560090385655719618, guid: c5fef3dcb2e735745ba8c5c2855416c1,
     type: 3}
   tableSpawnRate: 0.8
