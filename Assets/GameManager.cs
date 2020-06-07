@@ -2,17 +2,52 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] GameObject tablePrefab;
+    [Header("Win/Lose Game Objects")]
+    [SerializeField] GameObject bossElephant;
+    [SerializeField] GameObject baseCurly;
 
     // TODO: Pull into TableController
     [Header("Table")]
-    [SerializeField] float tableSpawnRate = 3f;
     [SerializeField] GameObject tableParent;
+    [SerializeField] GameObject tablePrefab;
+    [SerializeField] float tableSpawnRate = 3f;
     [SerializeField] int tableSpeed = 1000;
+
     List<Vector3> notSoRandomPositions = new List<Vector3>();
+
+    void Update()
+    {
+        ProcessElephantStatus();
+        ProcessCrulyStatus();
+    }
+
+    private void ProcessElephantStatus()
+    {
+        if (!bossElephant.gameObject) return;
+
+        bool isBossAlive = bossElephant.GetComponent<ShrinkToDeath>().GetIsAlive();
+        if (!isBossAlive)
+        {
+            Destroy(bossElephant.gameObject);
+            RestartGame();
+        }
+    }
+    
+    private void ProcessCrulyStatus()
+    {
+        if (!baseCurly.gameObject) return;
+
+        bool isBaseCurlyAlive = baseCurly.GetComponent<ShrinkToDeath>().GetIsAlive();
+        if (!isBaseCurlyAlive)
+        {
+            Destroy(baseCurly.gameObject);
+            RestartGame();
+        }
+    }
 
     // Start is called before the first frame update
     void OnMouseUp()
@@ -58,6 +93,11 @@ public class GameManager : MonoBehaviour
         GameObject instanceOfTable = Instantiate(tablePrefab, pos, Quaternion.identity);
         instanceOfTable.transform.parent = tableParent.transform;
         instanceOfTable.GetComponent<Rigidbody>().AddForce(Vector3.back * tableSpeed);
+    }
+
+    private void RestartGame()
+    {
+        SceneManager.LoadScene(0);
     }
 }
 
