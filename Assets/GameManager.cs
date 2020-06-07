@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
         if (!isBossAlive)
         {
             Destroy(bossElephant.gameObject);
+            RestartGame();
         }
     }
     
@@ -43,6 +45,7 @@ public class GameManager : MonoBehaviour
         if (!isBaseCurlyAlive)
         {
             Destroy(baseCurly.gameObject);
+            RestartGame();
         }
     }
 
@@ -90,6 +93,11 @@ public class GameManager : MonoBehaviour
         GameObject instanceOfTable = Instantiate(tablePrefab, pos, Quaternion.identity);
         instanceOfTable.transform.parent = tableParent.transform;
         instanceOfTable.GetComponent<Rigidbody>().AddForce(Vector3.back * tableSpeed);
+    }
+
+    private void RestartGame()
+    {
+        SceneManager.LoadScene(0);
     }
 }
 
